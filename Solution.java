@@ -1,23 +1,31 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
 
 class Solution {
-    public static int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int i=0;i<nums.length;i++){
-            int key = target - nums[i];
-            if(map.containsKey(key)){
-                return new int[] {map.get(key), i};
-            }else{
-                map.put(nums[i], i);
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode res = new ListNode(0);
+        ListNode temp = res;
+        int sum = 0;
+        while(l1!=null || l2!=null){
+            if(l1!=null){
+                sum += l1.val;
+                l1 = l1.next;
             }
+            if(l2!=null){
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            temp.next = new ListNode(sum%10);
+            temp = temp.next;
+            sum /= 10;
         }
-        return new int [] {-1, -1};
+        if(sum!=0){
+            temp.next = new ListNode(sum);
+        }
+        return res.next;
     }
-    public static void main(String [] args){
-        int[] nums = {3, 1, 7, 5, 6};
-        int target = 13;
-        System.out.println(Arrays.toString(twoSum(nums, target)));
-    }
+
 }
