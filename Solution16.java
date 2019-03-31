@@ -1,38 +1,31 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
- * Created by apple on 2019/3/16.
+ * Created by apple on 2019/3/31.
  */
 public class Solution16 {
-    public List<List<Integer>> threeSum(int[] nums) {
+    public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
-        List<List<Integer>> ls = new ArrayList<>();
+        int min = Integer.MAX_VALUE;
+        int res = 0;
         for(int i=0;i<nums.length-2;i++){
-            if(i==0||i>0 && nums[i]!=nums[i-1]){
-                int sum = 0 - nums[i];
-                int l = i+1;
-                int r = nums.length -1;
-                while (l<r){
-                    if(nums[l]+nums[r]==sum){
-                        ls.add(Arrays.asList(nums[i], nums[l], nums[r]));
-                        while (l<r && nums[l]==nums[l+1]) l++;
-                        while (l<r && nums[r]==nums[r-1]) r--;
-                        l++;
-                        r--;
-                    }else if(nums[l]+nums[r]>=sum){
-                        while (l<r && nums[r]==nums[r-1]) r--;
-                        r--;
-                    }else{
-                        while (l<r && nums[l]==nums[l+1]) l++;
-                        l++;
-                    }
+            int t = target - nums[i];
+            int l = i+1;
+            int r = nums.length-1;
+            while (l<r){
+                int temp = Math.abs(t-nums[l]-nums[r]);
+                if(temp<min){
+                    min = temp;
+                    res = nums[i]+nums[l]+nums[r];
+                }
+                if(nums[l]+nums[r]<t){
+                    l++;
+                }else{
+                    r--;
                 }
             }
 
         }
-        return ls;
+        return res;
     }
-
 }
