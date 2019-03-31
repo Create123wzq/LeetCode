@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by apple on 2019/3/16.
  */
-public class Solution16 {
+public class Solution15 {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ls = new ArrayList<>();
