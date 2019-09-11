@@ -1,3 +1,5 @@
+package algorithm;
+
 import java.util.Arrays;
 
 public class sort {
@@ -117,9 +119,45 @@ public class sort {
         }
     }
 
+    public static void heapSort(int []arr){
+        //1.构建大顶堆
+        for(int i=arr.length/2-1;i>=0;i--){
+            //从第一个非叶子结点从下至上，从右至左调整结构
+            adjustHeap(arr,i,arr.length);
+        }
+        //2.调整堆结构+交换堆顶元素与末尾元素
+        for(int j=arr.length-1;j>0;j--){
+            swap(arr,0,j);//将堆顶元素与末尾元素进行交换
+            adjustHeap(arr,0,j);//重新对堆进行调整
+        }
+
+    }
+
+    public static void adjustHeap(int[] A, int i, int length){
+        int temp = A[i];//先取出当前元素i
+        for(int k=i*2+1;k<length;k=k*2+1){//从i结点的左子结点开始，也就是2i+1处开始
+            if(k+1<length && A[k]<A[k+1]){//如果左子结点小于右子结点，k指向右子结点
+                k++;
+            }
+            if(A[k]>temp){//如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+                A[i] = A[k];
+                i = k;
+            }else{
+                break;
+            }
+        }
+        A[i] = temp;//将temp值放到最终的位置
+    }
+
+    public static void swap(int[] A, int i, int j){
+        int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
+    }
+
     public static void main(String[] args) {
         int[] A = {4,6,2,1,5,9};
-        mergeSort(A, 0, A.length-1);
+        heapSort(A);
         System.out.println(Arrays.toString(A));
     }
 }
